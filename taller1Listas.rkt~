@@ -1,0 +1,49 @@
+#lang eopl
+
+;<registro> = <vacio>
+;          = <item> <registro>
+
+;<item> = simbolo numero
+;       = simbolo <vacio>
+
+(define empty(lambda()
+               (list 'empty
+                )))
+
+(define item(lambda(sim num)
+              (list 'item sim num
+               )))
+
+(define registro(lambda(item reg)
+                  (list 'registro item reg
+                   )))
+
+;buscar(A,x) si x es un simbolo busca entre los simbolos si x es un numero busca entre los numeros
+
+(define buscar(lambda(registro var)
+                (
+                 if(number? var)
+                   (
+                    cond
+                     [(eqv? (car registro) 'empty) #f]
+                     [(and(number? (caddr (cadr registro)))(eqv? (caddr (cadr registro)) var)) #t]
+                     [else (buscar (caddr registro) var)]
+                    )
+                   (
+                    cond
+                     [(eqv? (car registro) 'empty) #f]
+                     [(eqv? (cadr (cadr registro)) var) #t]
+                     [else (buscar (caddr registro) var)]
+                    )
+                 )))
+
+(define insertar(lambda()
+                  (
+                   )))
+
+(define registro1
+  (registro (item 'x 20) (registro (item 'h 30) (registro (item 'y (empty)) (empty)))))
+
+
+
+ 
